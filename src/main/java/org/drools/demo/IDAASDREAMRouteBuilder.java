@@ -36,7 +36,7 @@ public class IDAASDREAMRouteBuilder extends RouteBuilder {
                 .process(kogitoDMNEvaluate)
                 .process(decisionsToHeaders)
             .claimCheck(ClaimCheckOperation.Pop)
-            .to("log:com.redhat.idaas?level=INFO&showAll=true&multiline=true")
+            .to("log:org.drools.demo?level=DEBUG&showAll=true&multiline=true")
             .transform().simple("${body.messageData}")
             .choice()
             .when(simple("${header.topicsHeader.size} > 0"))
@@ -48,7 +48,5 @@ public class IDAASDREAMRouteBuilder extends RouteBuilder {
             .otherwise()
                 .to("kafka:CATCH_ALL")
             ;
-        // from("kafka:MMSAllADT")
-        //     .to("log:com.redhat.idaas?level=INFO&showAll=true&multiline=true");
     }
 }
